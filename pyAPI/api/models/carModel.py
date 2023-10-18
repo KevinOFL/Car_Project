@@ -14,7 +14,7 @@ class Car(Base):
     sold = Column(Bollean, index=True, default=False)
     owners = Column(Integer, nullable=False)
 
-
+    # Relacionamento entre car e user
     buyer_id = Column(Integer, ForeignKey("users.id"))
     purchased_by = relationship("User", back_populates="cars")
 
