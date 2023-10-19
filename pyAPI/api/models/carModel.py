@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
 from _db.database import Base
 
 class Car(Base):
@@ -10,5 +11,10 @@ class Car(Base):
     brand = Column(String, nullable=False, index=True)
     year = Column(Integer, nullable=False)
     value = Column(Float, nullable=False)
+    sold = Column(Bollean, index=True, default=False)
     owners = Column(Integer, nullable=False)
+
+    # Relacionamento entre car e user
+    buyer_id = Column(Integer, ForeignKey("users.id"))
+    purchased_by = relationship("User", back_populates="cars")
 
