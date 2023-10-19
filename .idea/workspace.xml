@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4ed48210-cb77-4729-9124-32c328624667" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/models/carModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Models/carModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/models/userModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Models/userModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/schemas/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Schemas/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/schemas/carSchemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Schemas/carSchemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/schemas/userSchemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Schemas/userSchemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Service/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/service/carService.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Service/carService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyAPI/api/service/userService.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyAPI/api/_Service/userService.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
