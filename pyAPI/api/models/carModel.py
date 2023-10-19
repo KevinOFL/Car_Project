@@ -11,7 +11,7 @@ class Car(Base):
     brand = Column(String, nullable=False, index=True)
     year = Column(Integer, nullable=False)
     value = Column(Float, nullable=False)
-    sold = Column(Bollean, index=True, default=False)
+    sold = Column(Boolean, index=True, default=False)
     owners = Column(Integer, nullable=False)
 
     # Relacionamento entre car e user
