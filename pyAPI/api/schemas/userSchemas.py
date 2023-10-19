@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from api.models.carModel import Car
 
+
 # Schema base
 class user_base(BaseModel):
     name: str
@@ -10,6 +11,7 @@ class user_base(BaseModel):
 
     class Config:
         orm_mode = True
+
 
 # Schema de visualização de usuário
 class user_view(user_base):
