@@ -1,10 +1,12 @@
 from fastapi import Depends, HTTPException, FastAPI
 from typing import Dict
 from sqlalchemy.orm import Session
-from api.schemas import carSchemas
-from api.models import carModel
-from api.service import carService
+from api.schemas import carSchemas, userSchemas
+from api.models import carModel, userModel
+from api.service import carService, userService
 from _db.database import SessionLocal, engine
+
+from datetime import datetime
 
 carModel.Base.metadata.create_all(bind=engine)
 
@@ -23,6 +25,12 @@ def get_db():
 def create_car(car: carSchemas.Car_Create, db: Session = Depends(get_db)):
     db_car = carService.create_car(db=db, car=car)
     return db_car
+
+# Cria um novo usuário
+@app.post("/userCreate/", response_model=userSchemas.user_view)
+def create_user(user: userSchemas.user_view, db: Session = Depends(get_db)):
+    db_user = userService.create_user(db=db, user=user)
+    return db_user
 
 # Lista todos os carros do DB
 @app.get("/cars/", response_model=list[carSchemas.Car_view])
