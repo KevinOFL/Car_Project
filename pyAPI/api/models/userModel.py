@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from _db.database import Base
@@ -16,4 +16,4 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relacionamento entre car e user
-    car_purchased = relationship("Car", back_populates="buyer")
+    cars = relationship("Car", back_populates="purchased_by") 
