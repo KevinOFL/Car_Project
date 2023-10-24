@@ -1,5 +1,5 @@
 from fastapi import Depends, HTTPException, FastAPI
-from typing import Dict
+from typing import Dict, List
 from sqlalchemy.orm import Session
 from api.schemas import carSchemas, userSchemas
 from api.models import carModel, userModel
@@ -21,24 +21,30 @@ def get_db():
         db.close()
 
 # Cria um novo carro no DB
-@app.post("/carCreate/", response_model=carSchemas.Car_view)
-def create_car(car: carSchemas.Car_Create, db: Session = Depends(get_db)):
-    db_car = carService.create_car(db=db, car=car)
+@app.post("/carCreate/{buyer_id}", response_model=carSchemas.Car_view)
+def create_car(buyer_id: int, car: carSchemas.Car_Create, db: Session = Depends(get_db)):
+    db_car = carService.create_car(db=db, car=car, user_id = buyer_id)
     return db_car
 
 # Cria um novo usuário
 @app.post("/userCreate/", response_model=userSchemas.user_view)
-def create_user(user: userSchemas.user_view, db: Session = Depends(get_db)):
+def create_user(user: userSchemas.user_base, db: Session = Depends(get_db)):
     db_user = userService.create_user(db=db, user=user)
     return db_user
 
-# Lista todos os carros do DB
-@app.get("/cars/", response_model=list[carSchemas.Car_view])
+# Lista todos os carros
+@app.get("/cars/", response_model=List[carSchemas.Car_view])
 def car_views(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     cars = carService.get_cars(db, skip=skip, limit=limit)
     return cars
 
-# Pega e mostra um carro pelo ID
+# Lista todos os usuários
+@app.get("/users/", response_model=List[userSchemas.user_view])
+async def user_views(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    users = userService.get_users(db, skip=skip, limit=limit)
+    return users
+
+# Mostra um carro pelo ID
 @app.get("/cars/{car_id}", response_model=carSchemas.Car_view)
 def car_views_by_id(car_id: int, db: Session = Depends(get_db)):
     # verifica se o carro existe no DBe
@@ -46,6 +52,14 @@ def car_views_by_id(car_id: int, db: Session = Depends(get_db)):
     if db_car is None:
         raise HTTPException(status_code=404, detail="This Car Not Exist!")
     return db_car
+
+# Mostra um usuário pelo ID
+@app.get("/user/{user_id}", response_model=userSchemas.user_view)
+def user_view_by_id(user_id: int, db: Session = Depends(get_db)):
+    db_user = userService.get_user(db, user_id=user_id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="This User Not Exist!")
+    return db_user
 
 # Deleta um carro do DB pelo ID
 @app.delete("/deleteCar/{car_id}")

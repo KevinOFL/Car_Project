@@ -17,6 +17,7 @@ class user_base(BaseModel):
 
 # Schema de visualização de usuário
 class user_view(user_base):
+    id: Optional[int] = None
     is_active: Optional[bool] = True
     created_at: Optional[datetime] = None
 
