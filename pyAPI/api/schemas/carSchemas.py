@@ -31,22 +31,3 @@ class Car_view(Car_Create):
     class Config:
         from_attributes = True
         
-
-# # Schema para efetuar uma alteração na quantidade de donos
-# class Car_Owners(Car_Create):
-#     owners: int
-#
-#     class Config:
-#         orm_mode = True
-#
-# # Schema para efetuar uma alteração no valor de um carro
-# class Car_Price(Car_Create):
-#     value: float
-#
-#     class Config:
-#         orm_mode = True
-
-
-
-
-

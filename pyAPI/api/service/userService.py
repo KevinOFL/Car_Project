@@ -17,3 +17,14 @@ def create_user(db: Session, user: userSchemas.user_view):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+# Query para deletar um carro pelo ID
+def delete_user(db: Session, user_id: int):
+    user_to_delete = db.query(userModel.User).filter(userModel.User.id == user_id).first()
+
+    if user_to_delete:
+        db.delete(user_to_delete)
+        db.commit()
+        return True
+    else:
+        return False
