@@ -11,11 +11,11 @@ def get_cars(db: Session, skip: int = 0, limit: int = 100):
     return db.query(carModel.Car).offset(skip).limit(limit).all()
 
 # Query para adicionar um novo carro 
-def create_car(db: Session, car: carSchemas.Car_Create, user_id: int):
+def create_car(db: Session, car: carSchemas.Car_Create):
 # Utilizamos o Schema CarCreate que é baseado no Schema Base
 
     # Em vez de passar cada um dos argumentos de palavra-chave Car ler cada um deles do modelo Pydantic, estamos gerando um dict com os dados do modelo Pydantic com:
-    db_car = carModel.Car(**car.dict(), buyer_id=user_id)
+    db_car = carModel.Car(**car.dict())
     # e então estamos passando os dict pares de chave-valores como argumentos de palavra-chave para oSQLAlquimia Car, com:
     #
     # Car(**car.dict())

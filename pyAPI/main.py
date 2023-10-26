@@ -22,9 +22,10 @@ def get_db():
 
 # Cria um novo carro no DB
 @app.post("/carCreate/{buyer_id}", response_model=carSchemas.Car_view)
-def create_car(buyer_id: int, car: carSchemas.Car_Create, db: Session = Depends(get_db)):
-    db_car = carService.create_car(db=db, car=car, user_id = buyer_id)
+def create_car(car: carSchemas.Car_Create, db: Session = Depends(get_db)):
+    db_car = carService.create_car(db=db, car=car)
     return db_car
+
 
 # Cria um novo usuário
 @app.post("/userCreate/", response_model=userSchemas.user_view)
@@ -61,7 +62,7 @@ def user_view_by_id(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="This User Not Exist!")
     return db_user
 
-# Deleta um carro do DB pelo ID
+# Deleta um carro pelo ID
 @app.delete("/deleteCar/{car_id}")
 def car_delete(car_id: int, db: Session = Depends(get_db)):
     # Verifica se o Id inserido existe no DB
@@ -72,6 +73,18 @@ def car_delete(car_id: int, db: Session = Depends(get_db)):
     # Caso exista no DB será deletado
     carService.delete_car(db, car_id=car_id)
     return {"message": f"Car with ID {car_id} has been deleted"}
+
+# Deleta um usuário pelo ID
+@app.delete("/deleteUser/{user_id}")
+def user_delete(user_id: int, db: Session = Depends(get_db)):
+    db_user = userService.delete_user(db, user_id=user_id)
+
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="This User Not Exist!")
+    
+    userService.delete_user(db, user_id=user_id)
+    return {"message": f"User with ID {user_id} has been deleted"}
+
 
 # Altera o valor e a quantidade de donos que um carro possui
 @app.put("/updateCar/{car_id}", response_model=carSchemas.Car_view)
