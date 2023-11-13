@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional, List
-from api.models.carModel import Car
 from datetime import datetime
 
 

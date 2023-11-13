@@ -1,12 +1,10 @@
 from fastapi import Depends, HTTPException, FastAPI
-from typing import Dict, List
+from typing import List
 from sqlalchemy.orm import Session
 from api.schemas import carSchemas, userSchemas
-from api.models import carModel, userModel
+from api.models import carModel
 from api.service import carService, userService
 from _db.database import SessionLocal, engine
-
-from datetime import datetime
 
 carModel.Base.metadata.create_all(bind=engine)
 
@@ -36,14 +34,14 @@ def create_user(user: userSchemas.user_base, db: Session = Depends(get_db)):
 # Lista todos os carros
 @app.get("/cars/", response_model=List[carSchemas.Car_view])
 def car_views(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    cars = carService.get_cars(db, skip=skip, limit=limit)
-    return cars
+    db_car = carService.get_cars(db, skip=skip, limit=limit)
+    return db_car
 
 # Lista todos os usuários
 @app.get("/users/", response_model=List[userSchemas.user_view])
 async def user_views(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    users = userService.get_users(db, skip=skip, limit=limit)
-    return users
+    db_user = userService.get_users(db, skip=skip, limit=limit)
+    return db_user
 
 # Mostra um carro pelo ID
 @app.get("/cars/{car_id}", response_model=carSchemas.Car_view)
@@ -70,8 +68,6 @@ def car_delete(car_id: int, db: Session = Depends(get_db)):
     if db_car is None:
         raise HTTPException(status_code=404, detail="This Car Does Not Exist!")
 
-    # Caso exista no DB será deletado
-    carService.delete_car(db, car_id=car_id)
     return {"message": f"Car with ID {car_id} has been deleted"}
 
 # Deleta um usuário pelo ID
@@ -82,7 +78,6 @@ def user_delete(user_id: int, db: Session = Depends(get_db)):
     if db_user is None:
         raise HTTPException(status_code=404, detail="This User Not Exist!")
     
-    userService.delete_user(db, user_id=user_id)
     return {"message": f"User with ID {user_id} has been deleted"}
 
 

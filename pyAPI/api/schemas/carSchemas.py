@@ -16,7 +16,7 @@ class Car_Base(BaseModel):
 class Car_Create(Car_Base):
     owners: int
     value: float
-    sold: Optional[bool] = False
+    
 
     class Config:
         from_attributes = True
@@ -26,7 +26,8 @@ class Car_Create(Car_Base):
 # Schema utilizado para visualização
 class Car_view(Car_Create):
     id: int
-    buyer_id: Optional[int] = None
+    buyer_id: int
+    sold: bool
 
     class Config:
         from_attributes = True
