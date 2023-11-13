@@ -21,7 +21,7 @@ def get_db():
         db.close()
 
 # Cria um novo carro no DB
-@app.post("/carCreate/{buyer_id}", response_model=carSchemas.Car_view)
+@app.post("/carCreate/", response_model=carSchemas.Car_view)
 def create_car(car: carSchemas.Car_Create, db: Session = Depends(get_db)):
     db_car = carService.create_car(db=db, car=car)
     return db_car
